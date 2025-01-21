@@ -5,7 +5,7 @@ type MovieCardProps = {
   title: string;
   year: number;
   poster: string;
-}
+};
 
 const MovieCard: React.FC<MovieCardProps> = ({ title, year, poster }) => {
   return (
@@ -15,12 +15,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ title, year, poster }) => {
         borderRadius: '8px',
         padding: '8px',
         textAlign: 'center',
-        width: '150px',
+        maxWidth: '150px',
+        cursor: 'pointer',
       }}
     >
       <img src={poster} alt={title} style={{ width: '100%' }} />
       <h3 style={{ fontSize: '16px', margin: '8px 0' }}>{title}</h3>
-      <p>{year}</p>
+      <p style={{ fontSize: '14px', margin: '4px 0' }}>{year}</p>
     </div>
   );
 };

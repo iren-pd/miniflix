@@ -10,10 +10,7 @@ export const moviesApi = createApi({
   endpoints: (builder) => ({
     getMovies: builder.query<Movie[], void>({
       query: () => '/movies', // Эндпоинт для получения списка фильмов
-      transformResponse: (response: Movie[]) => {
-        console.log('response', response);
-        return response;
-      },
+      transformResponse: (response: Movie[]) => response,
     }),
     getMovieById: builder.query({
       query: (id) => `/movies/${id}`, // Эндпоинт для получения деталей фильма

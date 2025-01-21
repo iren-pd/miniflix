@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MovieCard from './MovieCard';
 import { useGetMoviesQuery } from '../apiSlice';
+import { Link } from 'react-router-dom';
+import { setSelectedMovieId } from '../moviesSlice';
+import { useDispatch } from 'react-redux';
 
 // const mockMovies = [
 //   {
@@ -24,13 +27,12 @@ import { useGetMoviesQuery } from '../apiSlice';
 // ];
 
 const MovieList: React.FC = () => {
-  const { data: movies = [], isLoading, error } = useGetMoviesQuery();
-  // console.log('movies', movies);
+  const { data: movies = [], isLoading } = useGetMoviesQuery();
+  const dispatch = useDispatch();
 
-  if (error) {
-    console.error('Ошибка запроса:', error);
-    // Дополнительно можно вывести error.message или error.status
-  }
+  const handleSelectMovie = (id: number) => {
+    dispatch(setSelectedMovieId(id));
+  };
 
   return (
     <div>
@@ -38,13 +40,18 @@ const MovieList: React.FC = () => {
       {isLoading && <p>Загрузка</p>}
       <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
         {movies.map((movie) => (
-          <MovieCard
+          <Link
+            to={`/movie/${movie.id}`}
             key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            year={movie.year}
-            poster={movie.poster}
-          />
+            onClick={() => handleSelectMovie(movie.id)}
+          >
+            <MovieCard
+              id={movie.id}
+              title={movie.title}
+              year={movie.year}
+              poster={movie.poster}
+            />
+          </Link>
         ))}
       </div>
     </div>

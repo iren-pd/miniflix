@@ -6,6 +6,7 @@ const initialState: MoviesState = {
   movies: [],
   isLoading: false,
   error: null,
+  selectedMovieId: null,
 };
 
 // Коробка
@@ -27,6 +28,16 @@ const moviesSlice = createSlice({
       );
     },
 
+    // Записать выбранный айди фильма
+    setSelectedMovieId: (state, action: PayloadAction<number>) => {
+      state.selectedMovieId = action.payload;
+    },
+
+    // Удалить выбранный айди фильма
+    clearSelectedMovieId: (state) => {
+      state.selectedMovieId = null;
+    },
+
     // Статус загрузки
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -39,6 +50,14 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setMovies, removeMovie, setLoading, setError } =
-  moviesSlice.actions;
+console.log('moviesSlice', moviesSlice);
+
+export const {
+  setMovies,
+  removeMovie,
+  setSelectedMovieId,
+  clearSelectedMovieId,
+  setLoading,
+  setError,
+} = moviesSlice.actions;
 export default moviesSlice.reducer;
